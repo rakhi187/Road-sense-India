@@ -1,6 +1,7 @@
 FROM node:24-slim
 
 WORKDIR /app
+ENV CI=true
 RUN corepack enable && corepack prepare pnpm@11.19.0 --activate
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc tsconfig.json tsconfig.base.json ./
@@ -13,6 +14,5 @@ RUN pnpm build
 
 ENV NODE_ENV=production
 ENV PORT=4173
-ENV CI=true
 EXPOSE 4173
 CMD ["pnpm", "start"]
